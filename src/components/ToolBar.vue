@@ -4,8 +4,11 @@
 
 <script>
     export default {
-        name: "ToolBar"
+        name: "ToolBar",
+
+
     }
+
 </script>
 
 <style scoped>

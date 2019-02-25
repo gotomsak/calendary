@@ -1,5 +1,5 @@
 <template>
-
+<h1>this History Page</h1>
 </template>
 
 <script>
