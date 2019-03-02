@@ -19,3 +19,9 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+venv
+
+calendary_api/calendary_api/settings.py
+vue.config.js
+assets

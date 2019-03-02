@@ -5,6 +5,7 @@ import Create from './views/Create.vue'
 import Evaluation from "./views/Evaluation";
 import Account from "./views/Account";
 import History from "./views/History";
+import test from "./views/test";
 
 Vue.use(Router)
 
@@ -41,7 +42,7 @@ export default new Router({
     {
       path: '/history',
       name: 'history',
-      component: History,
+      component: test,
       meta: { title: 'History' }
     },
     {
