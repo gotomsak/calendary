@@ -25,3 +25,6 @@ venv
 calendary_api/calendary_api/settings.py
 vue.config.js
 assets
+calendary_api/calendary_api/entry/migrations
+
+__pycache__
