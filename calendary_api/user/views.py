@@ -10,8 +10,11 @@ from django.urls import path
 from django.utils import timezone
 from rest_framework import exceptions
 from rest_framework.authtoken.views import ObtainAuthToken
-# from .serializers import UserInfoSerializer
-
+from .serializers import SignUpSerializer
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from django.db import transaction
+from rest_framework import status
 
 class TokenView(APIView):
 
@@ -26,8 +29,32 @@ class TokenView(APIView):
         if not check:
             raise exceptions.AuthenticationFailed('メールアドレスまたはパスワードが違います')
         token, _ = Token.objects.get_or_create(user=user)
-        print(_)
+
         return Response({'token': str(token)})
+
+
+class SignUpViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = SignUpSerializer
+    #
+    # @transaction.atomic
+    # def post(self,request):
+    #     serializer = SignUpSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # @action(detail=True, methods=['post'])
+    # def get_signup(self, request):
+    #     print(request.data)
+    #     user = self.get_object()
+    #     print(user)
+    #     serializer = SignUpSerializer(data=request.data)
+    #     print(serializer)
+    #     print(user)
+    #     return Response({"nyan": "nyan"})
+
 
 
 class UserInfoView(APIView):
@@ -47,7 +74,8 @@ class UserInfoView(APIView):
         return Response({
             'token': token.key,
             'user_id': user.id,
-            'email': user.email
+            'email': user.email,
+            'pass': user.password
         })
 
     # def authenticate(self, request):
