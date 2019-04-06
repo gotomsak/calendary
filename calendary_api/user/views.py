@@ -63,6 +63,13 @@ class SignUpViewSet(viewsets.ModelViewSet):
     #     return Response({"nyan": "nyan"})
 
 
+class LogoutViewSet(APIView):
+    def get(self, request):
+        token = Token.objects.get(key=request.META['HTTP_AUTHORIZATION'])
+        User.objects.filter(pk=token.user_id).delete()
+        return Response({'result': 'logoutしました'})
+
+
 class UserInfoView(APIView):
 
     def get(self, request):
