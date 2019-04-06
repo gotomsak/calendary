@@ -8,6 +8,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'user/signup', SignUpViewSet)
+# router.register(r'check_user', UserInfoView)
 urlpatterns = [
     path('user/login/', LoginView.as_view()),
     # path('check/', ExpirationTokenAuthentication),

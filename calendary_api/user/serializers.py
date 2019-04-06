@@ -1,15 +1,17 @@
 from .models import User
 from rest_framework import serializers
+from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
 
-# class UserInfoSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = (
-#             'id',
-#             'email',
-#
-#         )
+            'id',
+            'email',
+            'password'
+        )
 
 
 class SignUpSerializer(serializers.ModelSerializer):
@@ -28,5 +30,8 @@ class SignUpSerializer(serializers.ModelSerializer):
         username = validated_data["username"]
         email = validated_data["email"]
         password = validated_data["password"]
+
         return User.objects.create_user(username=username, email=email, password=password)
+
+
 

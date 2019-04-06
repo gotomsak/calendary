@@ -11,6 +11,7 @@ from django.utils import timezone
 from rest_framework import exceptions
 from rest_framework.authtoken.views import ObtainAuthToken
 from .serializers import SignUpSerializer
+from .serializers import UserInfoSerializer
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from django.db import transaction
@@ -64,13 +65,15 @@ class SignUpViewSet(viewsets.ModelViewSet):
 
 
 class LogoutViewSet(APIView):
-    def get(self, request):
+    def delete(self, request):
         token = Token.objects.get(key=request.META['HTTP_AUTHORIZATION'])
         User.objects.filter(pk=token.user_id).delete()
         return Response({'result': 'logoutしました'})
 
 
 class UserInfoView(APIView):
+    # queryset = User.objects.all()
+    # serializer_class = User
 
     def get(self, request):
         # queryset = User.objects.all()
@@ -83,13 +86,14 @@ class UserInfoView(APIView):
         # user = serializer.validated_data['user']
         # token, _ = Token.objects.get_or_create(user=queryset)
         user = User.objects.get(pk=token.user_id)
-
-        return Response({
-            'token': token.key,
-            'user_id': user.id,
-            'email': user.email,
-            'pass': user.password
-        })
+        return Response(UserInfoSerializer(user).data)
+        #
+        # return Response({
+        #     'token': token.key,
+        #     'user_id': user.id,
+        #     'email': user.email,
+        #     'pass': user.password
+        # })
 
     # def authenticate(self, request):
     #     print(request)
