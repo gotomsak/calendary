@@ -15,20 +15,27 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from django.db import transaction
 from rest_framework import status
+from rest_framework import generics
+from datetime import timedelta
 
-class TokenView(APIView):
+
+class LoginView(APIView):
 
     def get(self, request):
 
-        # 本来は認証しよう
-
-        # user = TokenAuthentication.authenticate(request.query_params['email'], request.query_params['password'])
         user = User.objects.get(email=request.GET['email'])
         check = user.check_password(request.GET['password'])
 
         if not check:
-            raise exceptions.AuthenticationFailed('メールアドレスまたはパスワードが違います')
-        token, _ = Token.objects.get_or_create(user=user)
+            raise exceptions.AuthenticationFailed('パスワードが違います')
+
+        # loginするたびtokenを発行し直す
+        try:
+            token = Token.objects.get(user=user)
+            Token.objects.filter(key=token).delete()
+        except Token.DoesNotExist:
+            pass
+        token = Token.objects.create(user=user)
 
         return Response({'token': str(token)})
 
@@ -54,7 +61,6 @@ class SignUpViewSet(viewsets.ModelViewSet):
     #     print(serializer)
     #     print(user)
     #     return Response({"nyan": "nyan"})
-
 
 
 class UserInfoView(APIView):
