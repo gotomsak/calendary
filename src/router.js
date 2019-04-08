@@ -53,7 +53,7 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login,
-
+      meta: { title: 'Login', meta: { requiresAuth: true }}
     },
     {
       path: '/about',

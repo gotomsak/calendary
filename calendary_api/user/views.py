@@ -21,8 +21,8 @@ from datetime import timedelta
 
 
 class LoginView(APIView):
-
-    def get(self, request):
+    @staticmethod
+    def get(request):
 
         user = User.objects.get(email=request.GET['email'])
         check = user.check_password(request.GET['password'])
@@ -65,7 +65,9 @@ class SignUpViewSet(viewsets.ModelViewSet):
 
 
 class LogoutViewSet(APIView):
-    def delete(self, request):
+
+    @staticmethod
+    def delete(request):
         token = Token.objects.get(key=request.META['HTTP_AUTHORIZATION'])
         User.objects.filter(pk=token.user_id).delete()
         return Response({'result': 'logoutしました'})
@@ -74,44 +76,18 @@ class LogoutViewSet(APIView):
 class UserInfoView(APIView):
     # queryset = User.objects.all()
     # serializer_class = User
-
-    def get(self, request):
+    @staticmethod
+    def get(request):
         # queryset = User.objects.all()
         # serializer_class = UserInfoSerializer
         # serializer = self.serializer_class(data=request.data,
         #                                    context={'request': request})
         # serializer.is_valid(raise_exception=True)
-        token, _ = Token.objects.get_or_create(key=request.META['HTTP_AUTHORIZATION'])
+        token = Token.objects.get(key=request.META['HTTP_AUTHORIZATION'])
 
         # user = serializer.validated_data['user']
         # token, _ = Token.objects.get_or_create(user=queryset)
         user = User.objects.get(pk=token.user_id)
         return Response(UserInfoSerializer(user).data)
-        #
-        # return Response({
-        #     'token': token.key,
-        #     'user_id': user.id,
-        #     'email': user.email,
-        #     'pass': user.password
-        # })
-
-    # def authenticate(self, request):
-    #     print(request)
-    #     user, auth = super().authenticate(request)
-    #     return user, auth
 
 
-# class ExpirationTokenAuthentication(TokenAuthentication):
-#     delta = timezone.timedelta(seconds=10)
-#
-#     def authenticate(self, request):
-#         print(request)
-#         user, auth = super().authenticate(request)
-#         if timezone.now() - auth.created > self.delta:
-#             auth.delete()
-#             raise exceptions.AuthenticationFailed('有効期限切れだよ')
-#
-#         # 毎回有効期限を更新する場合
-#         # auth.create = timezone.now()
-#         # auth.save()
-#         return user, auth

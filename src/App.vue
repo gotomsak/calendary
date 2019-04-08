@@ -63,6 +63,18 @@
             </v-list-tile-content>
           </v-list-tile>
         </router-link>
+
+        <router-link to="/login" class="link">
+          <v-list-tile @click="">
+            <v-list-tile-action>
+              <v-icon>login</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Login</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </router-link>
+
       </v-list>
 
     </v-navigation-drawer>
