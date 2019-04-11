@@ -21,7 +21,7 @@
         <v-divider></v-divider>
 
         <router-link to="/" class="link">
-          <v-list-tile @click="">
+          <v-list-tile>
             <v-list-tile-action>
               <v-icon>home</v-icon>
             </v-list-tile-action>
@@ -32,7 +32,7 @@
         </router-link>
 
         <router-link to="/create" class="link">
-          <v-list-tile @click="">
+          <v-list-tile>
             <v-list-tile-action>
               <v-icon>create</v-icon>
             </v-list-tile-action>
@@ -43,7 +43,7 @@
         </router-link>
 
         <router-link to="/evaluation" class="link">
-          <v-list-tile @click="">
+          <v-list-tile>
             <v-list-tile-action>
               <v-icon>thumbs_up_down</v-icon>
             </v-list-tile-action>
@@ -54,7 +54,7 @@
         </router-link>
 
         <router-link to="/history" class="link">
-          <v-list-tile @click="">
+          <v-list-tile>
             <v-list-tile-action>
               <v-icon>history</v-icon>
             </v-list-tile-action>
@@ -65,7 +65,7 @@
         </router-link>
 
         <router-link to="/login" class="link">
-          <v-list-tile @click="">
+          <v-list-tile >
             <v-list-tile-action>
               <v-icon>login</v-icon>
             </v-list-tile-action>
@@ -95,11 +95,11 @@
 </template>
 <script>
   import router from "./router"
-  router.afterEach((to) => {
-    if (to.meta && to.meta.title) {
-      document.getElementById("title").innerHTML = to.meta.title
-    }
-  })
+  // router.afterEach((to) => {
+  //   if (to.meta && to.meta.title) {
+  //     document.getElementById("title").innerHTML = to.meta.title
+  //   }
+  // })
   export default {
     components: { },
     methods:{

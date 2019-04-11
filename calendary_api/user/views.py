@@ -30,7 +30,7 @@ class LoginView(APIView):
         if not check:
             raise exceptions.AuthenticationFailed('パスワードが違います')
 
-        # loginするたびtokenを発行し直す
+        # loginするたびtokenを発行しなおす
         try:
             token = Token.objects.get(user=user)
             Token.objects.filter(key=token).delete()

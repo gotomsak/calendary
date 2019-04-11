@@ -66,22 +66,22 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!store.getters.loggedIn) {
-      next({
-        path: '/login',
-        query: {
-          redirect: to.fullPath,
-          message: true
-        }
-      })
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     if (!store.getters.loggedIn) {
+//       next({
+//         path: '/login',
+//         query: {
+//           redirect: to.fullPath,
+//           message: true
+//         }
+//       })
+//     } else {
+//       next()
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 export default router

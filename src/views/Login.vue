@@ -11,10 +11,10 @@
               <h4>Login</h4>
             </v-card-title>
             <v-form>
-            <v-text-field prepend-icon="person" name="Username" label="Username" ></v-text-field>
-            <v-text-field prepend-icon="lock" name="Password" label="Password" type="password"></v-text-field>
+            <v-text-field prepend-icon="person" name="Email" label="Email" v-model="email"></v-text-field>
+            <v-text-field prepend-icon="lock" name="Password" label="Password" type="password" v-model="password"></v-text-field>
             <v-card-actions>
-              <v-btn primary large block>Login</v-btn>
+              <v-btn v-on:click="login" primary large block>Login</v-btn>
             </v-card-actions>
             </v-form>
           </v-card>
@@ -25,12 +25,38 @@
 </template>
 
 <script>
+    import axios from 'axios'
+    //import state from '../store'
     export default {
       name: "Login",
+      data() {
+        return {
+          email: '',
+          password: '',
+          token: ''
+        }
+      },
       methods: {
-
+       login: function () {
+         console.log(this.email)
+         console.log(this.password)
+         axios.get('http://127.0.0.1:8000/api/user/login/', {
+           params: {
+             email: this.email,
+             password: this.password
+           }
+         })
+           .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+            .then(function () {
+              // always executed
+            });
+       }
       }
-
     }
 </script>
 
