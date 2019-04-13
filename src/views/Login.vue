@@ -11,7 +11,7 @@
               <h4>Login</h4>
             </v-card-title>
             <v-form>
-            <v-text-field prepend-icon="person" name="Email" label="Email" v-model="email"></v-text-field>
+            <v-text-field prepend-icon="email" name="Email" label="Email" v-model="email"></v-text-field>
             <v-text-field prepend-icon="lock" name="Password" label="Password" type="password" v-model="password"></v-text-field>
             <v-card-actions>
               <v-btn v-on:click="login" primary large block>Login</v-btn>
@@ -26,14 +26,14 @@
 
 <script>
     import axios from 'axios'
-    //import state from '../store'
+    import store from '../store'
     export default {
       name: "Login",
       data() {
         return {
           email: '',
           password: '',
-          token: ''
+
         }
       },
       methods: {
@@ -47,7 +47,8 @@
            }
          })
            .then(function (response) {
-              console.log(response);
+             store.commit('login',response.data.token)
+             //console.log(response.data);
             })
             .catch(function (error) {
               console.log(error);
@@ -56,6 +57,11 @@
               // always executed
             });
        }
+       //  login: function () {
+       //    console.log(this.email)
+       //    console.log(this.password)
+       //    store.commit('login', this.email, this.password)
+       //  }
       }
     }
 </script>

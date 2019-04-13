@@ -8,9 +8,8 @@
           <v-list>
             <v-list-tile>
               <v-list-tile-avatar>
-                <img src="image">
+                <img src="assets/logo.png">
               </v-list-tile-avatar>
-
               <v-list-tile-content>
                 <v-list-tile-title>John Leider</v-list-tile-title>
               </v-list-tile-content>
@@ -20,63 +19,20 @@
 
         <v-divider></v-divider>
 
-        <router-link to="/" class="link">
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>home</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Home</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </router-link>
-
-        <router-link to="/create" class="link">
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>create</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Create</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </router-link>
-
-        <router-link to="/evaluation" class="link">
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>thumbs_up_down</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Evaluation</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </router-link>
-
-        <router-link to="/history" class="link">
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>history</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>History</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </router-link>
-
-        <router-link to="/login" class="link">
-          <v-list-tile >
-            <v-list-tile-action>
-              <v-icon>login</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Login</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </router-link>
+        <a v-for="item in items" v-bind:key="item.title">
+          <router-link :to="item.path" class="link">
+            <v-list-tile>
+              <v-list-tile-action>
+                <v-icon>{{item.icon}}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>{{item.title}}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </router-link>
+        </a>
 
       </v-list>
-
     </v-navigation-drawer>
 
     <v-content>
@@ -86,15 +42,15 @@
     </v-content>
 
     <v-toolbar app fixed clipped-left >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title id="title">Home</v-toolbar-title>
+      <v-toolbar-side-icon @click.stop="stopDrawer"></v-toolbar-side-icon>
+      <v-toolbar-title>{{ viewTitle }}</v-toolbar-title>
     </v-toolbar>
 
   </v-app>
 
 </template>
 <script>
-  import router from "./router"
+  //import router from "./router"
   // router.afterEach((to) => {
   //   if (to.meta && to.meta.title) {
   //     document.getElementById("title").innerHTML = to.meta.title
@@ -103,18 +59,26 @@
   export default {
     components: { },
     methods:{
+      stopDrawer: function () {
+        this.drawer = !this.drawer
+        console.log(this.$router.name)
+      },
+
     },
     data () {
 
       return {
         drawer: true,
-        // items: [
-        //   { title: 'Home', icon: 'home'},
-        //   { title: 'Account', icon: 'account_circle'},
-        //   { title: 'Create', icon: 'create'},
-        //   { title: 'Evaluation', icon: 'thumbs_up_down'},
-        //   { title: 'History', icon: 'history'}
-        // ],
+        viewTitle: this.$router.name,
+        items: [
+          { title: 'Home', icon: 'mdi-home', path: '/' },
+          // { title: 'Account', icon: 'account_circle', path: '/account'},
+          { title: 'Create', icon: 'mdi-pencil', path: '/create' },
+          { title: 'Evaluation', icon: 'mdi-thumbs-up-down', path: '/evaluation' },
+          { title: 'History', icon: 'mdi-history', path: '/history' },
+          { title: 'Login', icon: 'mdi-login', path: '/login' },
+          { title: 'Signup', icon: 'mdi-account-plus', path: '/signup' }
+        ],
         // mini: true,
         // right: null
       }

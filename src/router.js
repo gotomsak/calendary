@@ -5,15 +5,18 @@ import Create from './views/Create.vue'
 import Evaluation from "./views/Evaluation";
 import Account from "./views/Account";
 import History from "./views/History";
+import Signup from "./views/Signup";
 import test from "./views/test";
 import store from "./store";
 import Login from "./views/Login";
 
 
 Vue.use(Router)
-
-
-const router = new Router({
+//
+// function loadView(view) {
+//   return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`)
+// }
+export default new Router({
 
   mode: 'history',
   base: process.env.BASE_URL,
@@ -56,12 +59,18 @@ const router = new Router({
       meta: { title: 'Login', meta: { requiresAuth: true }}
     },
     {
+      path: '/signup',
+      name: 'signup',
+      component: Signup,
+      meta: { title: 'Signup', meta: { requiresAuth: true }}
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      //component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     }
   ]
 })
@@ -84,4 +93,4 @@ const router = new Router({
 //   }
 // })
 
-export default router
+//export default router
