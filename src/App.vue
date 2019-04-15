@@ -43,19 +43,19 @@
 
     <v-toolbar app fixed clipped-left >
       <v-toolbar-side-icon @click.stop="stopDrawer"></v-toolbar-side-icon>
-      <v-toolbar-title>{{ viewTitle }}</v-toolbar-title>
+      <v-toolbar-title id="title">Calendary</v-toolbar-title>
     </v-toolbar>
 
   </v-app>
 
 </template>
 <script>
-  //import router from "./router"
-  // router.afterEach((to) => {
-  //   if (to.meta && to.meta.title) {
-  //     document.getElementById("title").innerHTML = to.meta.title
-  //   }
-  // })
+  import router from "./router"
+  router.afterEach((to) => {
+    if (to.meta && to.meta.title) {
+      document.getElementById("title").innerHTML = to.meta.title
+    }
+  })
   export default {
     components: { },
     methods:{
@@ -69,7 +69,7 @@
 
       return {
         drawer: true,
-        viewTitle: this.$router.name,
+        // viewTitle: this.$router.name,
         items: [
           { title: 'Home', icon: 'mdi-home', path: '/' },
           // { title: 'Account', icon: 'account_circle', path: '/account'},
