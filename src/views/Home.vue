@@ -1,12 +1,13 @@
 <template>
-  <HomeList></HomeList>
+    <HomeList></HomeList>
 </template>
 
 <script>
-  import HomeList from '../components/HomeList'
-  export default {
-    components: {
-      HomeList
+    import HomeList from '../components/HomeList'
+
+    export default {
+        components: {
+            HomeList
+        }
     }
-  }
 </script>

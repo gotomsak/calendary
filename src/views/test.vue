@@ -2,7 +2,7 @@
   <v-container fluid grid-list-md>
     <v-slide-y-transition mode="out-in">
       <v-layout row wrap align-center>
-        <v-flex v-for="entry in entryList">
+        <v-flex v-for="entry in entryList" v-bind:key="entry.title">
           <v-card>
 
             <v-img :src="entry.img" aspect-ratio="2.75">

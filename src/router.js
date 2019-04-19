@@ -18,61 +18,61 @@ Vue.use(Router)
 // }
 export default new Router({
 
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home,
-      meta: { title: 'Home', meta: { requiresAuth: true }}
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Home,
+            meta: {title: 'Home', meta: {requiresAuth: true}}
 
-    },
-    {
-      path: '/create',
-      name: 'create',
-      component: Create,
-      meta: { title: 'Create', meta: { requiresAuth: true }}
-    },
-    {
-      path: '/account',
-      name: 'account',
-      component: Account,
-      meta: { title: 'Account', meta: { requiresAuth: true }}
-    },
-    {
-      path: '/evaluation',
-      name: 'evaluation',
-      component: Evaluation,
-      meta: { title: 'Evaluation', meta: { requiresAuth: true }}
-    },
-    {
-      path: '/history',
-      name: 'history',
-      component: test,
-      meta: { title: 'History', meta: { requiresAuth: true }}
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
-      meta: { title: 'Login', meta: { requiresAuth: true }}
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      component: Signup,
-      meta: { title: 'Signup', meta: { requiresAuth: true }}
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      //component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
-  ]
+        },
+        {
+            path: '/create',
+            name: 'create',
+            component: Create,
+            meta: {title: 'Create', meta: {requiresAuth: true}}
+        },
+        {
+            path: '/account',
+            name: 'account',
+            component: Account,
+            meta: {title: 'Account', meta: {requiresAuth: true}}
+        },
+        {
+            path: '/evaluation',
+            name: 'evaluation',
+            component: Evaluation,
+            meta: {title: 'Evaluation', meta: {requiresAuth: true}}
+        },
+        {
+            path: '/history',
+            name: 'history',
+            component: test,
+            meta: {title: 'History', meta: {requiresAuth: true}}
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login,
+            meta: {title: 'Login', meta: {requiresAuth: true}}
+        },
+        {
+            path: '/signup',
+            name: 'signup',
+            component: Signup,
+            meta: {title: 'Signup', meta: {requiresAuth: true}}
+        },
+        {
+            path: '/about',
+            name: 'about',
+            // route level code-splitting
+            // this generates a separate chunk (about.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            //component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+        }
+    ]
 })
 
 // router.beforeEach((to, from, next) => {
