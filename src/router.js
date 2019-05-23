@@ -9,6 +9,7 @@ import Signup from "./views/Signup";
 import test from "./views/test";
 import store from "./store";
 import Login from "./views/Login";
+import Settings from "./views/Settings";
 
 
 Vue.use(Router)
@@ -63,6 +64,12 @@ export default new Router({
             name: 'signup',
             component: Signup,
             meta: {title: 'Signup', meta: {requiresAuth: true}}
+        },
+        {
+            path: '/settings',
+            name: 'settings',
+            component: Settings,
+            meta: {title: 'Settings', meta: {requiresAuth: true}}
         },
         {
             path: '/about',

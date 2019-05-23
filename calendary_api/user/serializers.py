@@ -3,15 +3,25 @@ from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 
+
 class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = (
+        fields = "__all__"
+        # fields = (
+        #
+        #     'id',
+        #     'email',
+        #     'password',
+        #     'image',
+        #     'status',
+        # )
 
-            'id',
-            'email',
-            'password'
-        )
+
+class TokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Token
+        fields = "__all__"
 
 
 class SignUpSerializer(serializers.ModelSerializer):

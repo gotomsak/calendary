@@ -6,14 +6,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        userId: '',
+        username: localStorage.getItem('username'),
         email: '',
-        // token: '',
+        token: localStorage.getItem('token'),
+        image: ''
     },
     getters: {
         loggedIn: state => {
             return Boolean(state.userId.trim())
         }
+    },
+    modules: {
+
     },
     mutations: {
         setUserId(state, userId) {

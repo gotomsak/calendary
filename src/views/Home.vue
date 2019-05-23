@@ -8,6 +8,9 @@
     export default {
         components: {
             HomeList
-        }
+        },
+        // created() {
+        //
+        // }
     }
 </script>

@@ -7,11 +7,12 @@
                 <v-toolbar flat class="transparent">
                     <v-list>
                         <v-list-tile>
-                            <v-list-tile-avatar>
-                                <img src="assets/logo.png">
+                            <v-list-tile-avatar :tile="tile">
+                                <!--<img src="./assets/img/user/icon/nero.jpg" alt="avatar">-->
+                                <img v-bind:src='image' alt="avatar">
                             </v-list-tile-avatar>
                             <v-list-tile-content>
-                                <v-list-tile-title>John Leider</v-list-tile-title>
+                                <v-list-tile-title>{{ username }}</v-list-tile-title>
                             </v-list-tile-content>
                         </v-list-tile>
                     </v-list>
@@ -51,7 +52,7 @@
 </template>
 <script>
     import router from "./router"
-
+    import store from "./store"
     router.afterEach((to) => {
         if (to.meta && to.meta.title) {
             document.getElementById("title").innerHTML = to.meta.title
@@ -62,7 +63,9 @@
         methods: {
             stopDrawer: function () {
                 this.drawer = !this.drawer
-                console.log(this.$router.name)
+                //console.log(this.$router.name)
+                console.log(this.username)
+                this.username = store.state.username
             },
 
         },
@@ -71,6 +74,10 @@
             return {
                 drawer: true,
                 // viewTitle: this.$router.name,
+                tile: true,
+                username: store.state.username,
+                image: store.state.image,
+
                 items: [
                     {title: 'Home', icon: 'mdi-home', path: '/'},
                     // { title: 'Account', icon: 'account_circle', path: '/account'},
@@ -78,7 +85,8 @@
                     {title: 'Evaluation', icon: 'mdi-thumbs-up-down', path: '/evaluation'},
                     {title: 'History', icon: 'mdi-history', path: '/history'},
                     {title: 'Login', icon: 'mdi-login', path: '/login'},
-                    {title: 'Signup', icon: 'mdi-account-plus', path: '/signup'}
+                    {title: 'Signup', icon: 'mdi-account-plus', path: '/signup'},
+                    {title: 'Settings', icon: 'mdi-settings', path:'/settings'}
                 ],
                 // mini: true,
                 // right: null

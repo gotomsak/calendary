@@ -78,7 +78,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
-    image = models.ImageField(_('image'), upload_to='user_icon/')
+    image = models.ImageField(_('image'), upload_to='img/user/icon/')
     status = models.TextField(_('status'))
 
     objects = UserManager()

@@ -12,12 +12,14 @@ from rest_framework import exceptions
 from rest_framework.authtoken.views import ObtainAuthToken
 from .serializers import SignUpSerializer
 from .serializers import UserInfoSerializer
+from .serializers import TokenSerializer
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from django.db import transaction
 from rest_framework import status
 from rest_framework import generics
 from datetime import timedelta
+from rest_framework import mixins
 
 
 class LoginView(APIView):
@@ -37,8 +39,9 @@ class LoginView(APIView):
         except Token.DoesNotExist:
             pass
         token = Token.objects.create(user=user)
-
-        return Response({'token': str(token)})
+        username = user.username
+        print(username)
+        return Response((UserInfoSerializer(user).data, TokenSerializer(token).data))
 
 
 class SignUpViewSet(viewsets.ModelViewSet):
@@ -83,11 +86,55 @@ class UserInfoView(APIView):
         # serializer = self.serializer_class(data=request.data,
         #                                    context={'request': request})
         # serializer.is_valid(raise_exception=True)
-        token = Token.objects.get(key=request.META['HTTP_AUTHORIZATION'])
+        #token = Token.objects.get(key=request.META['HTTP_AUTHORIZATION'])
+
+        try:
+            token = Token.objects.get(key=request.GET['token'])
+            user = User.objects.get(id=token.user_id)
+
+        except Token.DoesNotExist:
+            raise exceptions.AuthenticationFailed('tokenが違います')
+
+        token.delete()
+
+        token = Token.objects.create(user=user)
+
+
+
 
         # user = serializer.validated_data['user']
         # token, _ = Token.objects.get_or_create(user=queryset)
-        user = User.objects.get(pk=token.user_id)
-        return Response(UserInfoSerializer(user).data)
+        # user = User.objects.get(pk=token.user_id)
+        # print(user)
+        return Response((UserInfoSerializer(user).data, TokenSerializer(token).data))
 
 
+class UserEntryView(APIView):
+
+    @staticmethod
+    def get(request):
+        #print(request)
+        user = User.objects.get(email=request.GET['email'])
+        check = user.check_password(request.GET['password'])
+
+        if not check:
+            raise exceptions.AuthenticationFailed('パスワードが違います')
+
+        # loginするたびtokenを発行しなおす
+        try:
+            token = Token.objects.get(user=user)
+            Token.objects.filter(key=token).delete()
+        except Token.DoesNotExist:
+            pass
+        token = Token.objects.create(user=user)
+
+        username = user.username
+        print(username)
+
+        return Response({'token': str(token)})
+
+    @staticmethod
+    def post(request):
+        print(request)
+        user = User.objects.all()
+        serializer = SignUpSerializer(user)

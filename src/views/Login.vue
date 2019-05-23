@@ -27,6 +27,7 @@
     // import store from '../store'
     //import TextField from '../components/TextField'
     import UserInfoCard from "../components/UserInfoCard";
+    import store from "../store"
 
     export default {
         name: "Login",
@@ -55,7 +56,13 @@
                 })
                     .then(function (response) {
                         // store.commit('login', response.data.token)
-                        localStorage.setItem('token', response.data.token)
+                        localStorage.setItem('token', response.data[1].key);
+                        localStorage.setItem('username', response.data[0].username);
+                        console.log(store.state.username);
+                        console.log(store.state.token);
+                        store.state.token = response.data[1].key;
+                        store.state.username = response.data[0].username;
+                        store.state.image = response.data[0].image;
                         //console.log(response.data);
                     })
                     .catch(function (error) {
